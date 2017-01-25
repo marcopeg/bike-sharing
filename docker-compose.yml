@@ -5,6 +5,7 @@ services:
         image: mysql:8
         volumes:
             - ${HUMBLE_DATA}/mysql:/var/lib/mysql
+            - ./services/mysql/my.cnf:/etc/mysql/my.cnf
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_DATABASE: bikesharing
