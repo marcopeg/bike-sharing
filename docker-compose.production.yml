@@ -1,11 +1,20 @@
 version: '2'
 services:
 
+    mysql:
+        restart: always
+
+    pma:
+        restart: always
+
     free-bikes:
         entrypoint: ["npm", "run", "start"]
+        restart: always
 
     hubs:
         entrypoint: ["npm", "run", "start"]
+        restart: always
 
     hubs-info:
         entrypoint: ["npm", "run", "start"]
+        restart: always
