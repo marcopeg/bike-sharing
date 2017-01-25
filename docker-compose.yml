@@ -53,8 +53,6 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
         links:
             - mysql:mysql
-        depends_on:
-            - pma
 
     hubs-info:
         image: node:7.4
@@ -71,5 +69,3 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
         links:
             - mysql:mysql
-        depends_on:
-            - pma
