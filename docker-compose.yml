@@ -1,0 +1,75 @@
+version: '2'
+services:
+
+    mysql:
+        image: mysql:8
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: bikesharing
+
+    pma:
+        image: phpmyadmin/phpmyadmin:4.6.4-1
+        links:
+            - mysql:db
+        environment:
+            - PMA_USER=root
+            - PMA_PASSWORD=root
+            - PHP_UPLOAD_MAX_FILESIZE=999999999
+        depends_on:
+            - mysql
+        ports:
+            - 8080:80
+
+    free-bikes:
+        image: node:7.4
+        volumes:
+            - ./services/free-bikes/node-app:/usr/src/app
+        working_dir: /usr/src/app
+        entrypoint: ["npm", "run", "start:dev"]
+        environment:
+            LOG_LEVEL: info
+            SCRAPE_INTERVAL: 5000
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_HOST: mysql
+            MYSQL_DATABASE: bikesharing
+        links:
+            - mysql:mysql
+
+    hubs:
+        image: node:7.4
+        volumes:
+            - ./services/hubs/node-app:/usr/src/app
+        working_dir: /usr/src/app
+        entrypoint: ["npm", "run", "start:dev"]
+        environment:
+            LOG_LEVEL: info
+            SCRAPE_INTERVAL: 5000
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_HOST: mysql
+            MYSQL_DATABASE: bikesharing
+        links:
+            - mysql:mysql
+        depends_on:
+            - pma
+
+    hubs-info:
+        image: node:7.4
+        volumes:
+            - ./services/hubs-info/node-app:/usr/src/app
+        working_dir: /usr/src/app
+        entrypoint: ["npm", "run", "start:dev"]
+        environment:
+            LOG_LEVEL: info
+            SCRAPE_INTERVAL: 60000
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+            MYSQL_HOST: mysql
+            MYSQL_DATABASE: bikesharing
+        links:
+            - mysql:mysql
+        depends_on:
+            - pma
