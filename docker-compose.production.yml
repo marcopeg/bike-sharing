@@ -1,0 +1,11 @@
+version: '2'
+services:
+
+    free-bikes:
+        entrypoint: ["npm", "run", "start"]
+
+    hubs:
+        entrypoint: ["npm", "run", "start"]
+
+    hubs-info:
+        entrypoint: ["npm", "run", "start"]
