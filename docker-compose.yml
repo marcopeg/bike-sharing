@@ -7,7 +7,9 @@ services:
             - ${HUMBLE_DATA}/mysql:/var/lib/mysql
             - ./services/mysql/my.cnf:/etc/mysql/my.cnf
         environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_DATABASE: bikesharing
         mem_limit: ${MEM_LIMIT_MYSQL}
 
@@ -17,6 +19,7 @@ services:
             - mysql:db
         environment:
             - PMA_USER=${MYSQL_USER}
+            - PMA_PASSWORD=${MYSQL_PASSWORD}
         depends_on:
             - mysql
         ports:
@@ -34,12 +37,12 @@ services:
             SCRAPE_NETWORK_ID: ${SCRAPE_NETWORK_ID}
             SCRAPE_INTERVAL_SHORT: ${SCRAPE_INTERVAL_SHORT}
             SCRAPE_INTERVAL_LONG: ${SCRAPE_INTERVAL_LONG}
+            SCRAPE_INSERT_BACTH: ${SCRAPE_INSERT_BACTH}
+            SCRAPE_INSERT_DELAY: ${SCRAPE_INSERT_DELAY}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
             MYSQL_HOST: ${MYSQL_HOST}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_INSERT_BACTH: ${MYSQL_INSERT_BACTH}
-            MYSQL_INSERT_DELAY: ${MYSQL_INSERT_DELAY}
         links:
             - mysql:mysql
         mem_limit: ${MEM_LIMIT_MONITOR}

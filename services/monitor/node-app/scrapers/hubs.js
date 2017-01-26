@@ -37,7 +37,7 @@ function next (err) {
 
 function updateRecords (records) {
     return new Promise((resolve, reject) => {
-        async.eachLimit(records, config.get('MYSQL_INSERT_BACTH'), (record, next) => {
+        async.eachLimit(records, config.get('SCRAPE_INSERT_BACTH'), (record, next) => {
             updateRecord(record)
                 .then(() => next())
                 .catch(err => next(err))
@@ -58,7 +58,7 @@ function updateRecord (record) {
             bikes: record.available_bikes,
             racks: record.free_racks
         })
-        p.then(() => setTimeout(() => resolve(), config.get('MYSQL_INSERT_DELAY')))
-        p.catch(err => setTimeout(() => reject(err), config.get('MYSQL_INSERT_DELAY')))
+        p.then(() => setTimeout(() => resolve(), config.get('SCRAPE_INSERT_DELAY')))
+        p.catch(err => setTimeout(() => reject(err), config.get('SCRAPE_INSERT_DELAY')))
     })
 }
