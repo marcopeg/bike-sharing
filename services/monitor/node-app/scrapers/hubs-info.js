@@ -33,7 +33,7 @@ function next (err) {
     if (err) {
         winston.error(err)
     }
-    timer = setTimeout(scraper, config.get('SCRAPE_INTERVAL_SHORT'))
+    timer = setTimeout(scraper, config.get('SCRAPE_INTERVAL_LONG'))
 }
 
 function updateRecords (records) {

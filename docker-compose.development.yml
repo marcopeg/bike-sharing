@@ -1,0 +1,5 @@
+version: '2'
+services:
+    pma:
+        environment:
+            - PMA_PASSWORD=${MYSQL_PASSWORD}

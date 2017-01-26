@@ -7,14 +7,6 @@ services:
     pma:
         restart: always
 
-    free-bikes:
-        entrypoint: ["npm", "run", "start"]
-        restart: always
-
-    hubs:
-        entrypoint: ["npm", "run", "start"]
-        restart: always
-
-    hubs-info:
+    monitor:
         entrypoint: ["npm", "run", "start"]
         restart: always

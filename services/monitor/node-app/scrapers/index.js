@@ -9,8 +9,7 @@ const scrapers = [
 
 let init = () => Promise.all(scrapers.map(scraper => scraper.init()))
 
-// let start = () => Promise.all(scrapers.map(scraper => scraper.start()))
-
+// start one scraper at the time
 let start = () => new Promise((resolve, reject) => {
     async.eachSeries(scrapers, (scraper, next) => {
         scraper.start()

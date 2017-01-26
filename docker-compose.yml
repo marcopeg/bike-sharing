@@ -17,8 +17,6 @@ services:
             - mysql:db
         environment:
             - PMA_USER=${MYSQL_USER}
-            - PMA_PASSWORD=${MYSQL_PASSWORD}
-            - PHP_UPLOAD_MAX_FILESIZE=999999999
         depends_on:
             - mysql
         ports:
@@ -45,51 +43,3 @@ services:
         links:
             - mysql:mysql
         mem_limit: ${MEM_LIMIT_MONITOR}
-
-    # free-bikes:
-    #     image: node:7.4
-    #     volumes:
-    #         - ./services/free-bikes/node-app:/usr/src/app
-    #     working_dir: /usr/src/app
-    #     entrypoint: ["npm", "run", "start:dev"]
-    #     environment:
-    #         LOG_LEVEL: info
-    #         SCRAPE_INTERVAL: ${SCRAPE_INTERVAL_SHORT}
-    #         MYSQL_USER: ${MYSQL_USER}
-    #         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    #         MYSQL_HOST: ${MYSQL_HOST}
-    #         MYSQL_DATABASE: ${MYSQL_DATABASE}
-    #     links:
-    #         - mysql:mysql
-    #
-    # hubs:
-    #     image: node:7.4
-    #     volumes:
-    #         - ./services/hubs/node-app:/usr/src/app
-    #     working_dir: /usr/src/app
-    #     entrypoint: ["npm", "run", "start:dev"]
-    #     environment:
-    #         LOG_LEVEL: info
-    #         SCRAPE_INTERVAL: ${SCRAPE_INTERVAL_SHORT}
-    #         MYSQL_USER: ${MYSQL_USER}
-    #         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    #         MYSQL_HOST: ${MYSQL_HOST}
-    #         MYSQL_DATABASE: ${MYSQL_DATABASE}
-    #     links:
-    #         - mysql:mysql
-    #
-    # hubs-info:
-    #     image: node:7.4
-    #     volumes:
-    #         - ./services/hubs-info/node-app:/usr/src/app
-    #     working_dir: /usr/src/app
-    #     entrypoint: ["npm", "run", "start:dev"]
-    #     environment:
-    #         LOG_LEVEL: info
-    #         SCRAPE_INTERVAL: ${SCRAPE_INTERVAL_LONG}
-    #         MYSQL_USER: ${MYSQL_USER}
-    #         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    #         MYSQL_HOST: ${MYSQL_HOST}
-    #         MYSQL_DATABASE: ${MYSQL_DATABASE}
-    #     links:
-    #         - mysql:mysql
